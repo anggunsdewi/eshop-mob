@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freshnbloom/menu.dart';
+import 'package:freshnbloom/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
