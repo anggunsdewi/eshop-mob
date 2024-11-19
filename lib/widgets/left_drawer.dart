@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freshnbloom/screens/menu.dart';
 import 'package:freshnbloom/screens/productentry_form.dart';
+import 'package:freshnbloom/screens/list_productentry.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -27,7 +28,7 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 Text(
-                  "Tambahkan produk kamu hari ini~",
+                  "Beli barang kebutuhanmu di FreshnBloom",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -53,7 +54,7 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Tambah Produk'),
-            // Bagian redirection ke ProductEntryFormPage
+            // Bagian redirection ke MoodEntryFormPage
             onTap: () {
               Navigator.pushReplacement(
                           context,
@@ -61,6 +62,16 @@ class LeftDrawer extends StatelessWidget {
                             builder: (context) => ProductEntryFormPage(),
                           ));
             },
+          ),
+          ListTile(
+              leading: const Icon(Icons.list),
+              title: const Text('Daftar Produk'),
+              onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ProductEntryPage()),
+                  );
+              },
           ),
         ],
       ),

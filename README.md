@@ -283,3 +283,41 @@ Contoh navigasi: Untuk menavigasi antar halaman, kita menggunakan `Navigator.pus
   );
   ```
 </details>
+
+<details>
+    <summary><strong>📘Tugas 9 PBP</strong></summary>
+
+### 1. **Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?**
+Membuat model untuk pengambilan atau pengiriman data JSON sangatlah penting. Model ini memberikan struktur data yang konsisten dan terdefinisi dengan baik, yang memastikan bahwa data yang diterima atau dikirim selalu sesuai dengan format yang diharapkan. Dengan adanya model, saya dapat dengan mudah memvalidasi data secara otomatis, sehingga mengurangi kemungkinan adanya data yang tidak valid atau rusak yang dapat menyebabkan masalah dalam aplikasi.
+
+Selain itu, penggunaan model mempermudah proses pengembangan dan pemeliharaan kode. Saya dapat dengan jelas melihat representasi data yang saya tangani, yang membuat penambahan fitur baru atau debugging menjadi lebih efisien. Banyak library seperti json_serializable di Flutter memungkinkan saya untuk melakukan konversi otomatis antara JSON dan objek Dart, yang mengurangi beban kerja manual dan meminimalisir kesalahan penulisan kode.
+
+Jika saya tidak membuat model terlebih dahulu, saya harus mengakses data JSON secara manual menggunakan kunci string. Hal ini berisiko menyebabkan error runtime jika terjadi kesalahan penulisan kunci atau jika struktur JSON berubah dari sisi server. Selain itu, tanpa model yang terdefinisi dengan baik, validasi data menjadi lebih sulit dilakukan, yang bisa mengakibatkan bug dan masalah keamanan dalam aplikasi. Pemeliharaan kode juga menjadi lebih menantang karena tidak adanya representasi data yang terstruktur dengan jelas.
+
+### 2. **Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini**
+Dalam tugas ini, saya menggunakan library HTTP seperti http untuk menjembatani komunikasi antara aplikasi Flutter dan server backend Django. Library ini memungkinkan saya untuk mengirim berbagai jenis permintaan HTTP seperti GET, POST, PUT, dan DELETE ke server, serta menerima respons dari server tersebut. Dengan menggunakan library HTTP, saya dapat mengelola data JSON yang diterima dari server dengan lebih mudah, mengubahnya menjadi objek yang dapat digunakan dalam aplikasi Flutter.
+
+Selain itu, library HTTP ini juga membantu saya dalam menangani berbagai jenis error yang mungkin terjadi selama proses komunikasi, seperti timeout, kegagalan koneksi, atau respons error dari server. Saya juga dapat menambahkan header khusus, seperti token autentikasi atau cookie, yang diperlukan untuk mengakses endpoint tertentu di server. Beberapa fitur tambahan seperti interceptor, retry logic, dan manajemen sesi yang ditawarkan oleh library HTTP meningkatkan efisiensi dan keamanan komunikasi jaringan antara aplikasi dan server.
+
+### 3. **Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter**
+Saya menggunakan CookieRequest untuk mengelola cookie yang disimpan selama sesi pengguna. Cookie ini sangat berguna untuk mempertahankan sesi autentikasi atau menyimpan preferensi pengguna, sehingga pengguna tidak perlu login kembali setiap kali membuka aplikasi karena sesi autentikasi tetap terjaga. Selain itu, CookieRequest secara otomatis mengirimkan cookie dengan setiap permintaan HTTP, memastikan bahwa setiap permintaan yang memerlukan autentikasi memiliki informasi yang diperlukan.
+
+Penting bagi saya untuk membagikan instance CookieRequest ke semua komponen di aplikasi Flutter agar konsistensi sesi pengguna dapat terjaga di seluruh aplikasi. Dengan menggunakan satu instance yang sama, semua komponen dapat mengakses dan menggunakan cookie yang sama, yang menghindari duplikasi data dan mengurangi overhead dalam pengelolaan multiple instances. Selain itu, jika terjadi perubahan pada cookie, seperti saat pengguna melakukan logout, perubahan tersebut langsung tercermin di semua komponen yang menggunakan instance yang sama. Hal ini memastikan bahwa semua bagian aplikasi berada dalam keadaan yang sinkron dan konsisten.
+
+### 4. **Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter**
+Proses pengiriman data dalam aplikasi Flutter dimulai ketika saya memasukkan data melalui antarmuka pengguna, seperti mengisi formulir atau memasukkan informasi tertentu. Setelah data diinput, aplikasi Flutter melakukan validasi awal untuk memastikan bahwa data tersebut memenuhi kriteria yang diperlukan, seperti format email yang benar atau kekuatan kata sandi yang cukup.
+
+Setelah data divalidasi, saya mengubahnya menjadi objek model Dart yang sesuai. Objek model ini kemudian dikonversi menjadi format JSON jika diperlukan, dan dikirim ke server backend melalui permintaan HTTP menggunakan library HTTP yang telah diimplementasikan. Di sisi server, data yang diterima diproses sesuai kebutuhan, misalnya disimpan ke dalam database atau digunakan untuk autentikasi. Setelah proses di server selesai, server mengirimkan respons kembali ke aplikasi Flutter, seringkali dalam format JSON yang berisi hasil proses atau data yang diminta.
+
+Aplikasi Flutter kemudian menerima respons tersebut dan mengubahnya kembali menjadi objek model Dart. Jika ada data yang perlu ditampilkan, aplikasi akan memperbarui state dan antarmuka pengguna untuk menampilkan data tersebut kepada pengguna. Dengan demikian, data yang saya input akhirnya ditampilkan di antarmuka aplikasi setelah melalui proses validasi, pengiriman, dan pengolahan di server.
+
+### 5. ** Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter**
+Proses autentikasi dalam aplikasi dimulai dari tahap registrasi, di mana saya mengisi formulir dengan data seperti nama, email, dan kata sandi di aplikasi Flutter. Data ini kemudian dikirim ke server Django melalui permintaan HTTP POST ke endpoint registrasi. Di sisi Django, data yang diterima divalidasi untuk memastikan bahwa email unik dan kata sandi memenuhi kriteria yang ditetapkan. Jika validasi berhasil, Django membuat entitas pengguna baru di database dan mungkin mengirimkan email verifikasi jika diperlukan. Setelah proses ini selesai, Django mengirimkan respons sukses atau error kembali ke aplikasi Flutter, yang kemudian menampilkan pesan yang sesuai kepada pengguna.
+
+Selanjutnya, saat saya melakukan login, saya memasukkan email dan kata sandi di aplikasi Flutter. Data ini dikirim ke server Django melalui permintaan HTTP POST ke endpoint login. Django memverifikasi kredensial saya dan jika valid, membuat sesi autentikasi serta menghasilkan token atau cookie yang diperlukan untuk sesi tersebut. Aplikasi Flutter menerima token atau cookie ini dan menyimpannya menggunakan CookieRequest atau metode penyimpanan yang aman lainnya. Dengan token atau cookie yang disimpan, aplikasi Flutter dapat menjaga sesi autentikasi tetap aktif tanpa perlu login ulang setiap kali membuka aplikasi.
+
+Saat saya memilih untuk logout, aplikasi Flutter mengirimkan permintaan HTTP POST ke endpoint logout di server Django. Django kemudian menghapus sesi autentikasi atau menginvalidasi token/cookie yang digunakan. Aplikasi Flutter juga menghapus token atau cookie yang disimpan dan memperbarui state untuk menandakan bahwa saya telah logout, biasanya dengan mengarahkan saya kembali ke halaman login atau halaman awal aplikasi.
+
+Seluruh proses autentikasi ini diatur melalui manajemen state di aplikasi Flutter, menggunakan metode seperti Provider atau Bloc untuk mengelola status autentikasi pengguna. Berdasarkan status autentikasi ini, antarmuka pengguna aplikasi menampilkan menu atau halaman yang sesuai, seperti halaman utama untuk pengguna yang telah login atau halaman login/register untuk pengguna yang belum login. Dengan demikian, mekanisme autentikasi yang terintegrasi antara Flutter dan Django memastikan alur data dan keamanan sesi pengguna berjalan dengan lancar dan aman
+
+</details>
