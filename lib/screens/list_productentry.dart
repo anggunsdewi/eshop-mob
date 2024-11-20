@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freshnbloom/models/product_entry.dart';
+import 'package:freshnbloom/screens/product_detail.dart';
 import 'package:provider/provider.dart';
 import 'package:freshnbloom/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -55,11 +56,31 @@ class _ProductEntryPageState extends State<ProductEntryPage> {
                 ],
               );
             } else {
-              return ListView.builder(
+                return ListView.builder(
                 itemCount: snapshot.data!.length,
-                itemBuilder: (_, index) => Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                itemBuilder: (_, index) => GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(product: snapshot.data![index]),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Set the background color to white
+                      borderRadius: BorderRadius.circular(12), // Optional: Rounded corners
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2), // Subtle shadow effect
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +103,8 @@ class _ProductEntryPageState extends State<ProductEntryPage> {
                       Text("${snapshot.data![index].fields.rating}"),
                       const SizedBox(height: 10),
                       Text("${snapshot.data![index].fields.image}"),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
